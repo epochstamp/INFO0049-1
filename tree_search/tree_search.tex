@@ -1,0 +1,163 @@
+\documentclass[11pt,a4paper,BCOR12mm, headexclude, footexclude, twoside, openright]{scrartcl} 
+\usepackage[scaled]{helvet}
+\usepackage[british]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{ifthen}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{sfmath}
+\usepackage{makecell}
+\usepackage{booktabs}
+\usepackage{sectsty}
+
+%\KOMAoptions{optionenliste}
+%\KOMAoptions{Option}{Werteliste}
+
+
+\addtokomafont{caption}{\small}
+%\setkomafont{descriptionlabel}{\normalfont
+%	\bfseries}
+\setkomafont{captionlabel}{\normalfont
+	\bfseries}
+\let\oldtabular\tabular
+\renewcommand{\tabular}{\sffamily\oldtabular}
+\KOMAoptions{abstract=true}
+%\setkomafont{footnote}{\sffamily}
+%\KOMAoptions{twoside=true}
+%\KOMAoptions{headsepline=true}
+%\KOMAoptions{footsepline=true}
+\renewcommand\familydefault{\sfdefault}
+\renewcommand{\arraystretch}{1.1}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+\setlength{\textheight}{230mm}
+\allsectionsfont{\centering \normalfont\scshape}
+\let\tmp\oddsidemargin
+\let\oddsidemargin\evensidemargin
+\let\evensidemargin\tmp
+\reversemarginpar
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt}
+
+
+\begin{document}
+%\sffamily
+\fancypagestyle{plain}
+{%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0.5pt}
+  \fancyhf{}%
+  \fancyfoot[R]{\emph{\footnotesize Page \thepage\ of \pageref{LastPage}}}%
+  \fancyfoot[C]{\emph{\footnotesize Samy Aittahar}}%
+}
+
+\thispagestyle{plain}
+
+\titlehead
+{
+	University of Liège\hfill
+    INFO0049-1%
+}
+\subject{\vspace{-1ex} \horrule{2pt}\\[0.15cm] {\textsc{\texttt{Knowledge Representation}}}}
+\title{Assignment 1}
+\subtitle{\textsc{\texttt{Prolog Genesis : Tree searches and lists}}\\\horrule{2pt}\\[0.5cm]}
+\author{\bfseries{Samy Aittahar}\vspace{-2ex}}
+\date{\begin{tabular}{cc}
+  \textsc{Date:}& \textsc{\emph{\today}}
+\end{tabular}}
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+%--------------------------------------------
+
+\section{Pratical Informations}
+\begin{itemize}
+	\item Teaching Assistant : Samy Aittahar ;
+    \item saittahar@uliege.ac.be, office I-?? (Montefiore Institute, 1st floor) ;
+    \item Format : First course will consist on short talk, interactive exercises and homework. Following will be similar, without exercises.
+
+\end{itemize}
+
+
+\section{Drawing some search trees} %add a * after \section to get rid of the numbering
+
+Given the program in \ref{acpp}, draw the search tree for the following queries : 
+\begin{itemize}
+	\item has\_killed(X,Y), father(Y,X).
+    \item templar(X), has\_killed(Y,X). 
+\end{itemize}
+
+Draw also the search trees for the following predicates :
+
+\begin{itemize}
+\item assassin(Y), has\_killed(Y,X).
+\item has\_killed(Y,X), assassin(Y).
+\end{itemize}
+
+What can you tell?
+
+\section{Homework}
+
+	\begin{itemize}
+    	\item Write the predicate concat(+L1,+L2,-L3) which succeeds if L3 is the concatenation of lists L1 and L2 (example : concatenation of [a,b] and [c,d] is [a,b,c,d])
+    	\item Write the predicate flatten(+L,-L2) which succeeds if L2 is the flat version of L. You should use the concat predicate inside.
+        \begin{itemize}
+        	\item Be careful about the input/output specifications
+            \item A flat list of a list contains only the atoms of the latter. For example, [a,b,c,d] is the flatten version of [a,[b,c,[d]]]
+        \end{itemize}
+        \item From your predicates, draw the search tree of flatten([[[a]], b],L2).
+    \end{itemize}
+    
+    Homework is expected to be send by email before the 28th of February. Correction will be interactively provided during the following course.
+
+\appendix
+
+
+
+\section{Program}
+\label{acpp}
+\begin{enumerate}
+\item        assassin(desmund). ;
+\item        assassin(william). ;
+\item        assassin(connor). ;
+\item        assassin(achilles). ;
+\item        assassin(ezio). ;
+\item        assassin(altair). ;
+\item        templar(haytham). ;
+\item        templar(charles). ;
+\item        templar(vidic). ;
+\item       templar(cesare). ;
+\item       has\_killed(desmund, vidic). ;
+\item       has\_killed(connor, haytham). ;
+\item       has\_killed(ezio, cesare). ;
+\item       father(william, desmund). ;
+\item       father(haytham, connor). .
+\end{enumerate}
+%\begin{description}
+%	\item[empty] ist der Seitenstil, bei dem Kopf- und Fusszeile vollständig 	leer bleiben.\marginpar[\textit{Randnotiz links}]
+%	{\textit{Randnotiz rechts}}
+%    \item[plain] ist der Seitenstil, bei dem keinerlei Kolumnentitel verwendet wird.
+%    \item[headings] ist der Seitenstil für automatische Kolumnentitel.
+%    \item[myheadings] ist der Seitenstil für manuelle Kolumnentitel.
+%\end{description}
+
+
+
+%$\mathsf{({m}^{3}/s)}$
+%-------------------------------
+%\begin{figure}
+%	\setcapindent{-1em}
+%    \fbox{\parbox{.95\linewidth}{
+%    	\centering\KOMAScript}}
+%	\caption{Beispiel mit teilweise hängendem Einzug ab der zweiten Zeile}
+%\end{figure}
+
+%Guten Morgen\footnote{irgend ein text\label{refnote}}\multiplefootnoteseparator\footnote{es geht noch weiter}Blabla\footref{refnote}
+\end{document}
